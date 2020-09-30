@@ -59,6 +59,6 @@ jobs:
           path: test/bukkit
       - run: chmod +x test/bukkit/gradlew
       - run: test/bukkit/gradlew --version --no-daemon
-      - run: test/bukkit/gradlew build curseforge --stacktrace --no-daemon --console=plain --warning-mode all --project-dir test/mdk
+      - run: test/bukkit/gradlew build curseforge --stacktrace --no-daemon --console=plain --warning-mode all --project-dir test/bukkit
         env:
           CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
