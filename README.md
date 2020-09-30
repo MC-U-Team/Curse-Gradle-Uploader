@@ -6,6 +6,23 @@ The plugin is licensed under the [MIT](./LICENSE.txt) license by [matthewprenger
 
 All changes to the project are also licensed unter [MIT](./LICENSE.txt).
 
+To use the plugin add this at the start of your build.gradle
+
+```groovy
+buildscript {
+	repositories {
+		maven { url = "https://repo.u-team.info" }
+		jcenter()
+	}
+	dependencies {
+		classpath "info.u-team.curse_gradle_uploader:curse_gradle_uploader:1.4.0"
+	}
+}
+
+apply plugin: "info.u_team.curse_gradle_uploader"
+
+```
+
 Configure the upload url in the options block:
 
 ```groovy
