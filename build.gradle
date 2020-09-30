@@ -1,10 +1,9 @@
 plugins {
 	id "groovy"
 	id "idea"
+	id "maven"
 	id "com.github.johnrengelman.shadow" version "6.0.0"
 }
-
-apply plugin: "maven"
 
 version = "1.4.0"
 group = "info.u-team.curse_gradle_uploader"
@@ -106,4 +105,16 @@ uploadArchives {
 			}
 		}
 	}
+}
+
+def getValue(name) {
+	def envVariable = System.getenv(name)
+	if(envVariable != null) {
+		return envVariable
+	} else {
+		if (project.hasProperty(name)) {
+			return project.getProperty(name)
+		}
+	}
+	return null;
 }
