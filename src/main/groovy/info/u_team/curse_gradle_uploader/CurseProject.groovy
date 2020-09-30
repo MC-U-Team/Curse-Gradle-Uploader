@@ -1,8 +1,8 @@
-package com.matthewprenger.cursegradle
+package info.u_team.curse_gradle_uploader
+
+import static info.u_team.curse_gradle_uploader.Util.check
 
 import javax.annotation.Nullable
-
-import static com.matthewprenger.cursegradle.Util.check
 
 class CurseProject {
 	

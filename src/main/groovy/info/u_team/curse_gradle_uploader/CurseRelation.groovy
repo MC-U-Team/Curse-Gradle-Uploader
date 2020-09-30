@@ -1,8 +1,8 @@
-package com.matthewprenger.cursegradle
+package info.u_team.curse_gradle_uploader
+
+import static info.u_team.curse_gradle_uploader.Util.check
 
 import com.google.common.base.Strings
-
-import static com.matthewprenger.cursegradle.Util.check
 
 class CurseRelation implements Serializable {
 	

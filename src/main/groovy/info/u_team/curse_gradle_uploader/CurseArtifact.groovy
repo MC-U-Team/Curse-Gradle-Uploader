@@ -1,11 +1,11 @@
-package com.matthewprenger.cursegradle
+package info.u_team.curse_gradle_uploader
 
 import com.google.gson.annotations.SerializedName
 import org.gradle.api.Project
 
-import javax.annotation.Nullable
+import static info.u_team.curse_gradle_uploader.Util.check
 
-import static com.matthewprenger.cursegradle.Util.check
+import javax.annotation.Nullable
 
 class CurseArtifact implements Serializable {
 	

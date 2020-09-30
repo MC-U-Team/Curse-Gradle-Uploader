@@ -1,4 +1,4 @@
-package com.matthewprenger.cursegradle.jsonresponse
+package info.u_team.curse_gradle_uploader.jsonresponse
 
 /**
  * Returned as JSON upon a successful file upload

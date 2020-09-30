@@ -1,4 +1,4 @@
-package com.matthewprenger.cursegradle
+package info.u_team.curse_gradle_uploader
 
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project

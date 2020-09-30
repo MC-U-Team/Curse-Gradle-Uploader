@@ -1,4 +1,4 @@
-package com.matthewprenger.cursegradle
+package info.u_team.curse_gradle_uploader
 
 class CurseExtension {
 	

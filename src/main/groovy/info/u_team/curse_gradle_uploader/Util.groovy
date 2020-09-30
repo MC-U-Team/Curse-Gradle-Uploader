@@ -1,9 +1,11 @@
-package com.matthewprenger.cursegradle
+package info.u_team.curse_gradle_uploader
 
 import com.google.common.base.Charsets
 import com.google.common.io.Files
 import com.google.gson.Gson
-import com.matthewprenger.cursegradle.jsonresponse.CurseError
+
+import info.u_team.curse_gradle_uploader.jsonresponse.CurseError
+
 import org.apache.http.HttpResponse
 import org.apache.http.client.HttpClient
 import org.apache.http.client.config.CookieSpecs
