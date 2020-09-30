@@ -11,7 +11,7 @@ ext {
 }
 
 version = '1.4.0'
-group = 'com.matthewprenger'
+group = 'info.u-team'
 description = 'Gradle plugin to upload artifacts to CurseForge'
 archivesBaseName = 'CurseGradle'
 
