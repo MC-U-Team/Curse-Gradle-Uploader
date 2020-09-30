@@ -17,7 +17,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: cursegradle-fat-jar
-          path: build/libs/CurseGradle*-all.jar
+          path: build/libs/curse_gradle_uploader*-all.jar
   integration-test-mdk:
     runs-on: ubuntu-latest
     needs: build
