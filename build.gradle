@@ -4,6 +4,8 @@ plugins {
 	id "com.github.johnrengelman.shadow" version "6.0.0"
 }
 
+apply plugin: "maven"
+
 version = "1.4.0"
 group = "info.u-team.curse_gradle_uploader"
 description = "Gradle plugin to upload artifacts to CurseForge"
@@ -54,4 +56,54 @@ assemble.dependsOn javadocJar, sourcesJar
 	it.options.encoding = "UTF-8"
 	it.options.deprecation = true
 	it.options.fork = true
+}
+
+uploadArchives {
+	onlyIf {
+		getValue("mavenpass") != null
+	}
+	
+	tasks.uploadArchives.dependsOn build
+	
+	repositories {
+		mavenDeployer {
+			repository(url: "https://repo.u-team.info") {
+				authentication(userName: "maven", password: getValue("mavenpass"))
+			}
+			pom {
+				groupId = project.group
+				artifactId = project.archivesBaseName
+				version = project.version
+				project {
+					name project.archivesBaseName
+					packaging "jar"
+					description = project.description
+					url "https://github.com/MC-U-Team/CurseGradleUploader"
+					scm {
+						url "https://github.com/MC-U-Team/CurseGradleUploader"
+						connection "scm:git:git://github.com/MC-U-Team/CurseGradleUploader.git"
+						developerConnection "scm:git:git@github.com:MC-U-Team/CurseGradleUploader.git"
+					}
+					issueManagement {
+						system "github"
+						url "https://github.com/MC-U-Team/CurseGradleUploader/issues"
+					}
+					licenses {
+						license {
+							name "MIT"
+							url "https://github.com/MC-U-Team/CurseGradleUploader/blob/master/LICENSE.txt"
+							distribution "repo"
+						}
+					}
+					
+					developers {
+						developer {
+							name "matthewprenger"
+							name "HyCraftHD"
+						}
+					}
+				}
+			}
+		}
+	}
 }
