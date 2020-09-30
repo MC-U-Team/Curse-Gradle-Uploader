@@ -16,10 +16,10 @@ class CurseGradlePlugin implements Plugin<Project> {
     static final Set<String> VALID_RELEASE_TYPES = ['alpha', 'beta', 'release']
     static final Set<String> VALID_RELATIONS = ['requiredDependency', 'embeddedLibrary', 'optionalDependency', 'tool', 'incompatible']
 
-    static final String API_BASE_URL = 'https://minecraft.curseforge.com'
-    static final String VERSION_TYPES_URL = "$API_BASE_URL/api/game/version-types"
-    static final String VERSION_URL = "$API_BASE_URL/api/game/versions"
-    static final String UPLOAD_URL = "$API_BASE_URL/api/projects/%s/upload-file"
+    static String API_BASE_URL;
+    static String VERSION_TYPES_URL = "$API_BASE_URL/api/game/version-types"
+    static String VERSION_URL = "$API_BASE_URL/api/game/versions"
+    static String UPLOAD_URL = "$API_BASE_URL/api/projects/%s/upload-file"
 
     Project project
     CurseExtension extension
@@ -63,6 +63,8 @@ class CurseGradlePlugin implements Plugin<Project> {
                 if (ext.curseGradleOptions.forgeGradleIntegration) {
                     Integration.checkForgeGradle(project, curseProject)
                 }
+				
+				API_BASE_URL = ext.curseGradleOptions.apiBaseUrl;
 
                 curseProject.copyConfig()
 
