@@ -1,40 +1,40 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = "https://files.minecraftforge.net/maven" }
         jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
-        classpath fileTree(dir: projectDir, include: ['curse_gradle_uploader-*-all.jar'])
+        classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "3.+", changing: true
+        classpath fileTree(dir: projectDir, include: ["curse_gradle_uploader-*-all.jar"])
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'info.u_team.curse_gradle_uploader'
+apply plugin: "net.minecraftforge.gradle"
+apply plugin: "info.u_team.curse_gradle_uploader"
 
-group = 'info.u_team.cursegradletestmod'
-archivesBaseName = 'cursegradletestmod'
+group = "info.u_team.cursegradletestmod"
+archivesBaseName = "cursegradletestmod"
 version = "1.0"
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = "1.8"
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200514-1.16'
+    mappings channel: "snapshot", version: "20200514-1.16"
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.3-34.1.1'
+    minecraft "net.minecraftforge:forge:1.16.3-34.1.1"
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
    from javadoc.destinationDir
-   classifier = 'javadoc'
+   classifier = "javadoc"
 }
 
 task sourcesJar(type: Jar) {
    from sourceSets.main.allSource
-   classifier = 'sources'
+   classifier = "sources"
 }
 
 artifacts {
@@ -46,14 +46,14 @@ artifacts {
 assemble.dependsOn javadocJar, sourcesJar
 
 curseforge {
-    apiKey = System.getenv('CURSEFORGE_API_KEY') ?: 'unset'
+    apiKey = System.getenv("CURSEFORGE_API_KEY") ?: "unset"
     options {
         debug = true
     }
     project {
-        id = '70690'
-        changelog = 'Changes'
-        releaseType = 'alpha'
+        id = "70690"
+        changelog = "Changes"
+        releaseType = "alpha"
 		
         mainArtifact(jar) {
             displayName = "My Test Mod version $version"

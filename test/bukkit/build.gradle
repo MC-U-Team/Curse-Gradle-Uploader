@@ -6,7 +6,7 @@ buildscript {
 		jcenter()
 	}
 	dependencies {
-		classpath fileTree(dir: projectDir, include: ['curse_gradle_uploader-*-all.jar'])
+		classpath fileTree(dir: projectDir, include: ["curse_gradle_uploader-*-all.jar"])
 	}
 }
 
@@ -17,18 +17,18 @@ plugins {
 
 apply plugin: "java"
 apply plugin: "eclipse"
-apply plugin: 'info.u_team.curse_gradle_uploader'
+apply plugin: "info.u_team.curse_gradle_uploader"
 
 repositories {
 	mavenLocal()
 	mavenCentral()
 }
 
-group = 'info.u_team.cursegradletestplugin'
-archivesBaseName = 'cursegradletestplugin'
+group = "info.u_team.cursegradletestplugin"
+archivesBaseName = "cursegradletestplugin"
 version = "1.0"
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = "1.8"
 
 configurations {
 	plugin {
@@ -122,12 +122,12 @@ def hasArtifact(groupId, artifactId, version) {
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
    from javadoc.destinationDir
-   classifier = 'javadoc'
+   classifier = "javadoc"
 }
 
 task sourcesJar(type: Jar) {
    from sourceSets.main.allSource
-   classifier = 'sources'
+   classifier = "sources"
 }
 
 artifacts {
@@ -139,17 +139,17 @@ artifacts {
 assemble.dependsOn javadocJar, sourcesJar
 
 curseforge {
-	apiKey = System.getenv('CURSEFORGE_API_KEY') ?: 'unset'
+	apiKey = System.getenv("CURSEFORGE_API_KEY") ?: "unset"
 	options {
 		debug = true
 		javaVersionAutoDetect = false
 		forgeGradleIntegration = false
-		apiBaseUrl = 'https://dev.bukkit.org'
+		apiBaseUrl = "https://dev.bukkit.org"
 	}
 	project {
-		id = '70690'
-		changelog = 'Changes'
-		releaseType = 'alpha'
+		id = "70690"
+		changelog = "Changes"
+		releaseType = "alpha"
 		
 		addGameVersion "1.16"
 
