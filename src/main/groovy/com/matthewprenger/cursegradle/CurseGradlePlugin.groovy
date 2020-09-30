@@ -17,10 +17,23 @@ class CurseGradlePlugin implements Plugin<Project> {
     static final Set<String> VALID_RELATIONS = ['requiredDependency', 'embeddedLibrary', 'optionalDependency', 'tool', 'incompatible']
 
     static String API_BASE_URL;
-    static String VERSION_TYPES_URL = "$API_BASE_URL/api/game/version-types"
-    static String VERSION_URL = "$API_BASE_URL/api/game/versions"
-    static String UPLOAD_URL = "$API_BASE_URL/api/projects/%s/upload-file"
 
+	static String getApiBaseUrl() {
+		return API_BASE_URL
+	}
+	
+	static String getVersionTypesUrl() {
+		return "$API_BASE_URL/api/game/version-types"
+	}
+	
+	static String getVersionUrl() {
+		return "$API_BASE_URL/api/game/versions"
+	}
+	
+	static String getUploadUrl() {
+		return "$API_BASE_URL/api/projects/%s/upload-file"
+	}
+	
     Project project
     CurseExtension extension
 
