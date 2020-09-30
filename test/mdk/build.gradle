@@ -6,9 +6,10 @@ buildscript {
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
-        classpath fileTree(dir: projectDir, include: ['CurseGradle-*-all.jar'])
+        classpath fileTree(dir: projectDir, include: ['CurseGradleUploader-*-all.jar'])
     }
 }
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'info.u_team.curse_gradle_uploader'
 
