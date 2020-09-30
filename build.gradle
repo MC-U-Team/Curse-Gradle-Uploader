@@ -7,7 +7,7 @@ plugins {
 version = "1.4.0"
 group = "info.u-team.curse_gradle_uploader"
 description = "Gradle plugin to upload artifacts to CurseForge"
-archivesBaseName = "CurseGradleUploader"
+archivesBaseName = "curse_gradle_uploader"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
