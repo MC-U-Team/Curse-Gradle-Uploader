@@ -15,7 +15,7 @@ buildscript {
 		jcenter()
 	}
 	dependencies {
-		classpath "info.u-team.curse_gradle_uploader:curse_gradle_uploader:1.4.0"
+		classpath "info.u-team.curse_gradle_uploader:curse_gradle_uploader:1.4.1"
 	}
 }
 
@@ -29,7 +29,7 @@ Configure the upload url in the options block:
 	curseforge {
 		apiKey = System.getenv("CURSEFORGE_API_KEY") ?: "unset"
 		options {
-			apiBaseUrl = "https://dev.bukkit.org"
+			apiBaseUrl = "https://dev.bukkit.org" // This is optional. Defaults to https://minecraft.curseforge.com
 		}
 		project {
 			id = "70690"
