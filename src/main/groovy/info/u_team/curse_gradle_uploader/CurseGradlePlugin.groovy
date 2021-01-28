@@ -72,17 +72,6 @@ class CurseGradlePlugin implements Plugin<Project> {
 				
 				CurseExtension ext = project.extensions.getByType(CurseExtension)
 				
-				if (ext.curseGradleOptions.javaVersionAutoDetect) {
-					Integration.checkJavaVersion(project, curseProject)
-				}
-				
-				if (ext.curseGradleOptions.javaIntegration) {
-					Integration.checkJava(project, curseProject)
-				}
-				if (ext.curseGradleOptions.forgeGradleIntegration) {
-					Integration.checkForgeGradle(project, curseProject)
-				}
-				
 				API_BASE_URL = ext.curseGradleOptions.apiBaseUrl;
 				
 				curseProject.copyConfig()
