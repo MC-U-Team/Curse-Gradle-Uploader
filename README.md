@@ -29,8 +29,6 @@ Configure the upload url in the options block:
 	curseforge {
 		apiKey = System.getenv("CURSEFORGE_API_KEY") ?: "unset"
 		options {
-			javaVersionAutoDetect = false
-			forgeGradleIntegration = false
 			apiBaseUrl = "https://dev.bukkit.org"
 		}
 		project {
@@ -47,4 +45,5 @@ Configure the upload url in the options block:
 	}
 ```
 
-The other project setup is the same as matthewprenger CurseGradle plugin. So have a look at the [wiki](https://github.com/matthewprenger/CurseGradle/wiki) there.
+The other project setup is the same as matthewprenger CurseGradle plugin without the integration stuff.
+So have a look at the [wiki](https://github.com/matthewprenger/CurseGradle/wiki) there.
