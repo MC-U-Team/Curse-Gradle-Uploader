@@ -57,12 +57,14 @@ assemble.dependsOn javadocJar, sourcesJar
 	it.options.fork = true
 }
 
-publishing {
+tasks.withType(PublishToMavenRepository) {
 	onlyIf {
 		getValue("mavenpass") != null
 	}
-	
-	tasks.publishing.dependsOn build
+}
+
+publishing {
+	publish.dependsOn build
 	
 	repositories {
 		maven {
@@ -73,8 +75,11 @@ publishing {
 			}
 		}
 	}
+	
 	publications {
 		mavenJava(MavenPublication) {
+			from components.java
+			
 			groupId = project.group
 			artifactId = project.archivesBaseName
 			version = project.version
@@ -84,27 +89,27 @@ publishing {
 				description = project.description
 				url = "https://github.com/MC-U-Team/CurseGradleUploader"
 				scm {
-					url "https://github.com/MC-U-Team/CurseGradleUploader"
-					connection "scm:git:git://github.com/MC-U-Team/CurseGradleUploader.git"
-					developerConnection "scm:git:git@github.com:MC-U-Team/CurseGradleUploader.git"
+					url = "https://github.com/MC-U-Team/CurseGradleUploader"
+					connection = "scm:git:git://github.com/MC-U-Team/CurseGradleUploader.git"
+					developerConnection = "scm:git:git@github.com:MC-U-Team/CurseGradleUploader.git"
 				}
 				issueManagement {
-					system "github"
-					url "https://github.com/MC-U-Team/CurseGradleUploader/issues"
+					system = "github"
+					url = "https://github.com/MC-U-Team/CurseGradleUploader/issues"
 				}
 				licenses {
 					license {
-						name "MIT"
-						url "https://github.com/MC-U-Team/CurseGradleUploader/blob/master/LICENSE.txt"
-						distribution "repo"
+						name = "MIT"
+						url = "https://github.com/MC-U-Team/CurseGradleUploader/blob/master/LICENSE.txt"
+						distribution = "repo"
 					}
 				}
 				developers {
 					developer {
-						name "matthewprenger"
+						name = "matthewprenger"
 					}
 					developer {
-						name "HyCraftHD"
+						name = "HyCraftHD"
 					}
 				}
 			}
