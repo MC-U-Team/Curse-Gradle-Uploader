@@ -1,7 +1,7 @@
 plugins {
 	id "groovy"
 	id "idea"
-	id "maven"
+	id "maven-publish"
 	id "com.github.johnrengelman.shadow" version "6.0.0"
 }
 
@@ -57,49 +57,54 @@ assemble.dependsOn javadocJar, sourcesJar
 	it.options.fork = true
 }
 
-uploadArchives {
+publishing {
 	onlyIf {
 		getValue("mavenpass") != null
 	}
 	
-	tasks.uploadArchives.dependsOn build
+	tasks.publishing.dependsOn build
 	
 	repositories {
-		mavenDeployer {
-			repository(url: "https://repo.u-team.info") {
-				authentication(userName: "maven", password: getValue("mavenpass"))
+		maven {
+			url "https://repo.u-team.info"
+			credentials {
+				username = "maven"
+				password = getValue("mavenpass")
 			}
+		}
+	}
+	publications {
+		mavenJava(MavenPublication) {
+			groupId = project.group
+			artifactId = project.archivesBaseName
+			version = project.version
+			
 			pom {
-				groupId = project.group
-				artifactId = project.archivesBaseName
-				version = project.version
-				project {
-					name project.archivesBaseName
-					packaging "jar"
-					description = project.description
+				name = project.archivesBaseName
+				description = project.description
+				url = "https://github.com/MC-U-Team/CurseGradleUploader"
+				scm {
 					url "https://github.com/MC-U-Team/CurseGradleUploader"
-					scm {
-						url "https://github.com/MC-U-Team/CurseGradleUploader"
-						connection "scm:git:git://github.com/MC-U-Team/CurseGradleUploader.git"
-						developerConnection "scm:git:git@github.com:MC-U-Team/CurseGradleUploader.git"
+					connection "scm:git:git://github.com/MC-U-Team/CurseGradleUploader.git"
+					developerConnection "scm:git:git@github.com:MC-U-Team/CurseGradleUploader.git"
+				}
+				issueManagement {
+					system "github"
+					url "https://github.com/MC-U-Team/CurseGradleUploader/issues"
+				}
+				licenses {
+					license {
+						name "MIT"
+						url "https://github.com/MC-U-Team/CurseGradleUploader/blob/master/LICENSE.txt"
+						distribution "repo"
 					}
-					issueManagement {
-						system "github"
-						url "https://github.com/MC-U-Team/CurseGradleUploader/issues"
+				}
+				developers {
+					developer {
+						name "matthewprenger"
 					}
-					licenses {
-						license {
-							name "MIT"
-							url "https://github.com/MC-U-Team/CurseGradleUploader/blob/master/LICENSE.txt"
-							distribution "repo"
-						}
-					}
-					
-					developers {
-						developer {
-							name "matthewprenger"
-							name "HyCraftHD"
-						}
+					developer {
+						name "HyCraftHD"
 					}
 				}
 			}
