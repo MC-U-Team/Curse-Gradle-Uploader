@@ -78,7 +78,9 @@ publishing {
 	
 	publications {
 		mavenJava(MavenPublication) {
-			from components.java
+			artifact jar
+			artifact javadocJar
+			artifact sourcesJar
 			
 			groupId = project.group
 			artifactId = project.archivesBaseName
