@@ -1,25 +1,76 @@
 plugins {
+	id "java-gradle-plugin"
 	id "groovy"
-	id "idea"
+	id "eclipse"
 	id "maven-publish"
 	id "com.github.johnrengelman.shadow" version "6.1.0"
 }
 
-version = "1.4.1"
 group = "info.u-team.curse_gradle_uploader"
-description = "Gradle plugin to upload artifacts to CurseForge"
 archivesBaseName = "curse_gradle_uploader"
+version = "1.5.0"
+description = "Gradle plugin to upload artifacts to CurseForge"
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(8)
+	}
+	withSourcesJar()
+	withJavadocJar()
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = []
+		}
+		groovy {
+			srcDirs = [
+				"src/main/java",
+				"src/main/groovy"
+			]
+		}
+	}
+}
+
+gradlePlugin {
+	plugins {
+		gradleFilesPlugin {
+			id = "info.u_team.curse_gradle_uploader"
+			implementationClass = "info.u_team.curse_gradle_uploader.CurseGradlePlugin"
+		}
+	}
+	automatedPublishing = false
+}
+
+// Fix no sources for gradle api (https://stackoverflow.com/questions/22694199/gradle-api-sources-and-doc-when-writing-gradle-plugins)
+plugins.withType(EclipsePlugin) {
+	plugins.withType(JavaBasePlugin) {
+		eclipse {
+			classpath {
+				file {
+					whenMerged { classpath ->
+						final def gradleHome = gradle.getGradleHomeDir().absolutePath.replace(File.separator, "/")
+						final def gradleSourceDirectory = "${gradleHome}/src"
+						classpath.entries.each { entry ->
+							if (entry in org.gradle.plugins.ide.eclipse.model.AbstractLibrary && entry.library.path.contains('generated-gradle-jars')) {
+								entry.sourcePath = new org.gradle.plugins.ide.eclipse.model.internal.FileReferenceFactory().fromPath(gradleSourceDirectory)
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 repositories {
-	jcenter()
+	mavenCentral()
 }
 
 dependencies {
-	compileOnly gradleApi()
-	compileOnly localGroovy()
+	//compileOnly gradleApi()
+	//compileOnly localGroovy()
 	
 	implementation group: "net.sf.trove4j", name: "trove4j", version: "3.0.3"
 	implementation group: "com.google.guava", name: "guava", version: "19.0"
@@ -29,27 +80,9 @@ dependencies {
 }
 
 jar.manifest.mainAttributes([
-	"Implementation-Title"  : project.name,
+	"Implementation-Title": project.name,
 	"Implementation-Version": project.version
 ])
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-	from javadoc.destinationDir
-	archiveClassifier.set("javadoc")
-}
-
-task sourcesJar(type: Jar) {
-	from sourceSets.main.allSource
-	archiveClassifier.set("sources")
-}
-
-artifacts {
-	archives jar
-	archives javadocJar
-	archives sourcesJar
-}
-
-assemble.dependsOn javadocJar, sourcesJar
 
 [compileJava, compileGroovy].each {
 	it.options.encoding = "UTF-8"
@@ -57,87 +90,17 @@ assemble.dependsOn javadocJar, sourcesJar
 	it.options.fork = true
 }
 
-tasks.withType(PublishToMavenRepository) {
-	onlyIf {
-		getValue("mavenpass") != null
-	}
-}
-
 publishing {
-	publish.dependsOn build
-	
 	repositories {
 		maven {
-			url "https://repo.u-team.info"
-			credentials {
-				username = "maven"
-				password = getValue("mavenpass")
-			}
+			url layout.buildDirectory.dir("mavenRepo")
 		}
 	}
-	
 	publications {
 		mavenJava(MavenPublication) {
-			artifact jar
-			artifact sourcesJar
-			artifact javadocJar
-						
-			groupId = project.group
 			artifactId = project.archivesBaseName
-			version = project.version
 			
-			pom {
-				name = project.archivesBaseName
-				description = project.description
-				url = "https://github.com/MC-U-Team/CurseGradleUploader"
-				scm {
-					url = "https://github.com/MC-U-Team/CurseGradleUploader"
-					connection = "scm:git:git://github.com/MC-U-Team/CurseGradleUploader.git"
-					developerConnection = "scm:git:git@github.com:MC-U-Team/CurseGradleUploader.git"
-				}
-				issueManagement {
-					system = "github"
-					url = "https://github.com/MC-U-Team/CurseGradleUploader/issues"
-				}
-				licenses {
-					license {
-						name = "MIT"
-						url = "https://github.com/MC-U-Team/CurseGradleUploader/blob/master/LICENSE.txt"
-						distribution = "repo"
-					}
-				}
-				developers {
-					developer {
-						name = "matthewprenger"
-					}
-					developer {
-						name = "HyCraftHD"
-					}
-				}
-				withXml {
-					def dependenciesNode = asNode().appendNode("dependencies")
-	
-					configurations.implementation.allDependencies.each {
-						def dependencyNode = dependenciesNode.appendNode("dependency")
-						dependencyNode.appendNode("groupId", it.group)
-						dependencyNode.appendNode("artifactId", it.name)
-						dependencyNode.appendNode("version", it.version)
-						dependencyNode.appendNode("scope", "runtime")
-					}
-				}
-			}
+			from components.java
 		}
 	}
-}
-
-def getValue(name) {
-	def envVariable = System.getenv(name)
-	if(envVariable != null) {
-		return envVariable
-	} else {
-		if (project.hasProperty(name)) {
-			return project.getProperty(name)
-		}
-	}
-	return null;
 }
