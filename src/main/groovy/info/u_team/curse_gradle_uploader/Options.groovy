@@ -10,9 +10,4 @@ class Options {
 	 * to the console. Useful for testing your buildscript.
 	 */
 	boolean debug = false
-	
-	/**
-	 * The api base url of the curse forge project
-	 */
-	String apiBaseUrl = 'https://minecraft.curseforge.com'
 }

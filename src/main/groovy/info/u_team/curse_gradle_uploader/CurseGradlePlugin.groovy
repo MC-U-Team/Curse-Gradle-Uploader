@@ -22,24 +22,6 @@ class CurseGradlePlugin implements Plugin<Project> {
 		'incompatible'
 	]
 	
-	static String API_BASE_URL;
-	
-	static String getApiBaseUrl() {
-		return API_BASE_URL
-	}
-	
-	static String getVersionTypesUrl() {
-		return "$API_BASE_URL/api/game/version-types"
-	}
-	
-	static String getVersionUrl() {
-		return "$API_BASE_URL/api/game/versions"
-	}
-	
-	static String getUploadUrl() {
-		return "$API_BASE_URL/api/projects/%s/upload-file"
-	}
-	
 	Project project
 	CurseExtension extension
 	
@@ -67,10 +49,9 @@ class CurseGradlePlugin implements Plugin<Project> {
 				uploadTask.group = TASK_GROUP
 				uploadTask.description = "Uploads CurseForge project $curseProject.id"
 				uploadTask.additionalArtifacts = curseProject.additionalArtifacts
+				uploadTask.apiBaseUrl = curseProject.apiBaseUrl
 				uploadTask.apiKey = curseProject.apiKey
 				uploadTask.projectId = curseProject.id
-				
-				API_BASE_URL = extension.curseGradleOptions.apiBaseUrl;
 				
 				curseProject.copyConfig()
 				

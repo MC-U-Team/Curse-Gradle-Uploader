@@ -51,6 +51,11 @@ class CurseProject {
 	def changelog = ''
 	
 	/**
+	 * The API base url that should be used for communicating with curseforge
+	 */
+	def apiBaseUrl
+	
+	/**
 	 * The API key to be used for file uploads
 	 */
 	def apiKey
@@ -156,6 +161,7 @@ class CurseProject {
 	 */
 	void validate() {
 		check(id != null, "Project id not set")
+		check(apiBaseUrl != null, "apiBaseUrl not set for project $id")
 		check(apiKey != null, "apiKey not set for project $id")
 		check(mainArtifact != null, "mainArtifact not set for project $id")
 		check(!gameVersionStrings.isEmpty(), "No Minecraft version configured for project $id")

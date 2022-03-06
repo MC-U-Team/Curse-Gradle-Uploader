@@ -23,6 +23,9 @@ class CurseUploadTask extends DefaultTask {
 	private static final Logger log = Logging.getLogger(CurseUploadTask)
 	
 	@Input
+	String apiBaseUrl
+	
+	@Input
 	String apiKey
 	
 	@Input
@@ -36,13 +39,15 @@ class CurseUploadTask extends DefaultTask {
 	
 	@TaskAction
 	run() {
-		
+		Util.check(!Strings.isNullOrEmpty(apiBaseUrl), "CurseForge Project $projectId does not have an apiBaseUrl configured")
 		Util.check(!Strings.isNullOrEmpty(apiKey), "CurseForge Project $projectId does not have an apiKey configured")
+		
+		final CurseApi api = new CurseApi(apiBaseUrl, apiKey)
 		
 		mainArtifact.resolve(project)
 		
-		CurseVersions.initialize(apiKey)
-		mainArtifact.gameVersions = CurseVersions.resolveGameVersion(mainArtifact.gameVersionStrings)
+		final CurseVersions versions = new CurseVersions(api)
+		mainArtifact.gameVersions = versions.resolveGameVersion(mainArtifact.gameVersionStrings)
 		
 		final String json = Util.gson.toJson(mainArtifact)
 		int mainID = uploadFile(json, (File) mainArtifact.artifact)
@@ -57,7 +62,6 @@ class CurseUploadTask extends DefaultTask {
 	}
 	
 	int uploadFile(String json, File file) throws IOException, URISyntaxException {
-		
 		int fileID
 		final String uploadUrl = String.format(CurseGradlePlugin.getUploadUrl(), projectId)
 		log.info("Uploading file: {} to url: {} with json: {}", file, uploadUrl, json)
