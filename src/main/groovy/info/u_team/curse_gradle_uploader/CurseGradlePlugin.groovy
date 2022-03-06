@@ -1,16 +1,13 @@
 package info.u_team.curse_gradle_uploader
 
-import com.google.common.base.Strings
-
-import groovy.transform.CompileStatic
-
 import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.bundling.AbstractArchiveTask
 
-@CompileStatic
+import com.google.common.base.Strings
+
 class CurseGradlePlugin implements Plugin<Project> {
 	
 	static final String TASK_NAME = 'curseforge'
@@ -46,7 +43,7 @@ class CurseGradlePlugin implements Plugin<Project> {
 			
 			extension.curseProjects.each { curseProject ->
 				
-				Util.check(!Strings.isNullOrEmpty(curseProject.id as String), "A CurseForge project was configured without an id")
+				Util.check(!Strings.isNullOrEmpty(curseProject.id), "A CurseForge project was configured without an id")
 				
 				CurseUploadTask uploadTask = project.tasks.create("curseforge$curseProject.id", CurseUploadTask)
 				curseProject.uploadTask = uploadTask

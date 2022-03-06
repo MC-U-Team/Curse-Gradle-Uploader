@@ -68,12 +68,16 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+	implementationDependencies
+	implementation.extendsFrom(implementationDependencies)
+}
+
 dependencies {
-	implementation group: "net.sf.trove4j", name: "trove4j", version: "3.0.3"
-	implementation group: "com.google.guava", name: "guava", version: "31.1-jre"
-	implementation group: "com.google.code.gson", name: "gson", version: "2.9.0"
-	implementation group: "org.apache.httpcomponents", name: "httpmime", version: "4.5.13"
-	implementation group: "org.apache.httpcomponents", name: "httpclient", version: "4.5.13"
+	implementationDependencies group: "com.google.guava", name: "guava", version: "31.1-jre"
+	implementationDependencies group: "com.google.code.gson", name: "gson", version: "2.9.0"
+	implementationDependencies group: "org.apache.httpcomponents", name: "httpmime", version: "4.5.13"
+	implementationDependencies group: "org.apache.httpcomponents", name: "httpclient", version: "4.5.13"
 }
 
 jar.manifest.mainAttributes([
@@ -85,6 +89,12 @@ jar.manifest.mainAttributes([
 	it.options.encoding = "UTF-8"
 	it.options.deprecation = true
 	it.options.fork = true
+}
+
+shadowJar {
+	configurations = [
+		project.configurations.implementationDependencies
+	]
 }
 
 publishing {
