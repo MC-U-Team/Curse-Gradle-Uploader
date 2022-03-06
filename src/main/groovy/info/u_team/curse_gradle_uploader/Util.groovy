@@ -4,6 +4,7 @@ import com.google.common.base.Charsets
 import com.google.common.io.Files
 import com.google.gson.Gson
 
+import groovy.transform.CompileStatic
 import info.u_team.curse_gradle_uploader.jsonresponse.CurseError
 
 import org.apache.http.HttpResponse
@@ -19,6 +20,7 @@ import org.gradle.api.tasks.bundling.AbstractArchiveTask
 
 import static com.google.common.base.Preconditions.checkNotNull
 
+@CompileStatic
 class Util {
 	
 	private static final Logger log = Logging.getLogger(Util)

@@ -4,6 +4,9 @@ import static info.u_team.curse_gradle_uploader.Util.check
 
 import com.google.common.base.Strings
 
+import groovy.transform.CompileStatic
+
+@CompileStatic
 class CurseRelation implements Serializable {
 	
 	private void addRelation(String typeIn, String slugIn) {

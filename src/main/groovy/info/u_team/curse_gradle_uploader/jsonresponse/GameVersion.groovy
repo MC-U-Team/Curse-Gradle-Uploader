@@ -1,8 +1,11 @@
 package info.u_team.curse_gradle_uploader.jsonresponse
 
+import groovy.transform.CompileStatic
+
 /**
  * A game version
  */
+@CompileStatic
 class GameVersion {
 	
 	/**

@@ -3,8 +3,10 @@ package info.u_team.curse_gradle_uploader
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 
+import groovy.transform.CompileStatic
 import info.u_team.curse_gradle_uploader.jsonresponse.*
 
+@CompileStatic
 class CurseVersions {
 	
 	private static final Logger log = Logging.getLogger(CurseVersions)
@@ -50,6 +52,6 @@ class CurseVersions {
 			set.add(id)
 		}
 		
-		return set.toArray()
+		return set.stream().toArray(Integer)
 	}
 }

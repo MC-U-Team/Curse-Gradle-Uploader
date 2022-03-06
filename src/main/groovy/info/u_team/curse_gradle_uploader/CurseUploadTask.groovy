@@ -2,6 +2,7 @@ package info.u_team.curse_gradle_uploader
 
 import com.google.common.base.Strings
 
+import groovy.transform.CompileStatic
 import info.u_team.curse_gradle_uploader.jsonresponse.*
 
 import org.apache.http.HttpResponse
@@ -18,6 +19,7 @@ import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 
+@CompileStatic
 class CurseUploadTask extends DefaultTask {
 	
 	private static final Logger log = Logging.getLogger(CurseUploadTask)
@@ -50,20 +52,20 @@ class CurseUploadTask extends DefaultTask {
 		mainArtifact.gameVersions = versions.resolveGameVersion(mainArtifact.gameVersionStrings)
 		
 		final String json = Util.gson.toJson(mainArtifact)
-		int mainID = uploadFile(json, (File) mainArtifact.artifact)
+		int mainID = uploadFile(api, json, (File) mainArtifact.artifact)
 		mainArtifact.fileID = mainID
 		
 		additionalArtifacts.each { artifact ->
 			artifact.resolve(project)
 			artifact.parentFileID = mainID
 			final String childJson = Util.gson.toJson(artifact)
-			artifact.fileID = uploadFile(childJson, (File) artifact.artifact)
+			artifact.fileID = uploadFile(api, childJson, (File) artifact.artifact)
 		}
 	}
 	
-	int uploadFile(String json, File file) throws IOException, URISyntaxException {
+	private int uploadFile(CurseApi api, String json, File file) throws IOException, URISyntaxException {
 		int fileID
-		final String uploadUrl = String.format(CurseGradlePlugin.getUploadUrl(), projectId)
+		final String uploadUrl = String.format(api.uploadUrl, projectId)
 		log.info("Uploading file: {} to url: {} with json: {}", file, uploadUrl, json)
 		
 		HttpClient client = HttpClientBuilder.create()
@@ -72,7 +74,7 @@ class CurseUploadTask extends DefaultTask {
 		
 		HttpPost post = new HttpPost(new URI(uploadUrl))
 		
-		post.addHeader('X-Api-Token', apiKey)
+		post.addHeader('X-Api-Token', api.apiKey)
 		post.setEntity(MultipartEntityBuilder.create()
 				.addTextBody('metadata', json, ContentType.APPLICATION_JSON)
 				.addBinaryBody('file', file)

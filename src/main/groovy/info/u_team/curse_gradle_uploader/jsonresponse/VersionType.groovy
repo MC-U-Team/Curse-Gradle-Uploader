@@ -1,8 +1,11 @@
 package info.u_team.curse_gradle_uploader.jsonresponse
 
+import groovy.transform.CompileStatic
+
 /**
  * A dependency
  */
+@CompileStatic
 class VersionType {
 	
 	/**
