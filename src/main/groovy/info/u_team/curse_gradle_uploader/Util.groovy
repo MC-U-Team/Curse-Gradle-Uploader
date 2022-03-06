@@ -67,7 +67,7 @@ class Util {
 		}
 		
 		if (obj instanceof AbstractArchiveTask) {
-			String data = new String(((File) ((AbstractArchiveTask) obj).archivePath).getText('UTF-8').getBytes('UTF-8'))
+			String data = new String(((File) ((AbstractArchiveTask) obj).archiveFile.get().asFile).getText('UTF-8').getBytes('UTF-8'))
 			return data;
 		}
 		

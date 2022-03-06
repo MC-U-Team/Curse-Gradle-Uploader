@@ -11,16 +11,6 @@ class CurseExtension {
 	
 	Options curseGradleOptions = new Options()
 	
-	@Deprecated
-	boolean getDebug() {
-		return curseGradleOptions.debug
-	}
-	
-	@Deprecated
-	void setDebug(boolean debug) {
-		curseGradleOptions.debug = debug
-	}
-	
 	/**
 	 * Define a new CurseForge project for deployment
 	 *

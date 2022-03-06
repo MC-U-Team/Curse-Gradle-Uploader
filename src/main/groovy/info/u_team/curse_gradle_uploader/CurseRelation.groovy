@@ -10,19 +10,11 @@ class CurseRelation implements Serializable {
 		projects.add(new Project(type: typeIn, slug: slugIn))
 	}
 	
-	@Deprecated
-	void requiredLibrary(String slugIn) {
-		addRelation("requiredDependency", slugIn)
-	}
 	void requiredDependency(String slugIn) {
 		addRelation("requiredDependency", slugIn)
 	}
 	void embeddedLibrary(String slugIn) {
 		addRelation("embeddedLibrary", slugIn)
-	}
-	@Deprecated
-	void optionalLibrary(String slugIn) {
-		addRelation("optionalDependency", slugIn)
 	}
 	void optionalDependency(String slugIn) {
 		addRelation("optionalDependency", slugIn)
@@ -53,7 +45,7 @@ class CurseRelation implements Serializable {
 		String slug
 		
 		/**
-		 * The type of relationship. Must be one of {@link com.matthewprenger.cursegradle.CurseGradlePlugin#VALID_RELATIONS}
+		 * The type of relationship. Must be one of {@link CurseGradlePlugin#VALID_RELATIONS}
 		 */
 		String type
 		

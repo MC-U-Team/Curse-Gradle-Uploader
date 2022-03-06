@@ -70,9 +70,7 @@ class CurseGradlePlugin implements Plugin<Project> {
 				uploadTask.apiKey = curseProject.apiKey
 				uploadTask.projectId = curseProject.id
 				
-				CurseExtension ext = project.extensions.getByType(CurseExtension)
-				
-				API_BASE_URL = ext.curseGradleOptions.apiBaseUrl;
+				API_BASE_URL = extension.curseGradleOptions.apiBaseUrl;
 				
 				curseProject.copyConfig()
 				

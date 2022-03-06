@@ -31,16 +31,14 @@ class CurseVersions {
 			TIntSet validVersionTypes = new TIntHashSet()
 			
 			String versionTypesJson = Util.httpGet(apiKey, CurseGradlePlugin.getVersionTypesUrl())
-			//noinspection GroovyAssignabilityCheck
+			
 			VersionType[] types = Util.gson.fromJson(versionTypesJson, VersionType[].class)
 			types.each { type ->
-				//if (type.slug.startsWith('minecraft') || type.slug == 'java' || type.slug == 'modloader') {
 				validVersionTypes.add(type.id)
-				//}
 			}
 			
 			String gameVersionsJson = Util.httpGet(apiKey, CurseGradlePlugin.getVersionUrl())
-			//noinspection GroovyAssignabilityCheck
+			
 			GameVersion[] versions = Util.gson.fromJson(gameVersionsJson, GameVersion[].class)
 			versions.each { version ->
 				if (validVersionTypes.contains(version.gameVersionTypeID)) {
@@ -49,8 +47,8 @@ class CurseVersions {
 			}
 			
 			log.info 'CurseForge versions initialized'
-		} catch (Throwable t) {
-			throw Throwables.propagate(t)
+		} catch (Throwable throwable) {
+			throw throwable
 		}
 	}
 	
