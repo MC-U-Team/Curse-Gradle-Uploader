@@ -104,7 +104,11 @@ components.java.withVariantsFromConfiguration(configurations.shadowRuntimeElemen
 publishing {
 	repositories {
 		maven {
-			url layout.buildDirectory.dir("mavenRepo")
+			url "https://repo.u-team.info"
+			credentials {
+				username = "maven"
+				password = getValue("maven.password")
+			}
 		}
 	}
 	publications {
@@ -112,6 +116,48 @@ publishing {
 			artifactId = project.archivesBaseName
 			
 			from components.java
+			
+			pom {
+				name = project.archivesBaseName
+				description = project.description
+				url = "https://github.com/MC-U-Team/CurseGradleUploader"
+				scm {
+					url = "https://github.com/MC-U-Team/CurseGradleUploader"
+					connection = "scm:git:git://github.com/MC-U-Team/CurseGradleUploader.git"
+					developerConnection = "scm:git:git@github.com:MC-U-Team/CurseGradleUploader.git"
+				}
+				issueManagement {
+					system = "github"
+					url = "https://github.com/MC-U-Team/CurseGradleUploader/issues"
+				}
+				licenses {
+					license {
+						name = "MIT"
+						url = "https://github.com/MC-U-Team/CurseGradleUploader/blob/master/LICENSE"
+						distribution = "repo"
+					}
+				}
+				developers {
+					developer {
+						name = "matthewprenger"
+					}
+					developer {
+						name = "HyCraftHD"
+					}
+				}
+			}
 		}
 	}
+}
+
+def getValue(name) {
+	def envVariable = System.getenv(name)
+	if(envVariable != null) {
+		return envVariable
+	} else {
+		if (project.hasProperty(name)) {
+			return project.getProperty(name)
+		}
+	}
+	return null;
 }
