@@ -97,6 +97,10 @@ shadowJar {
 	]
 }
 
+components.java.withVariantsFromConfiguration(configurations.shadowRuntimeElements) {
+	skip()
+}
+
 publishing {
 	repositories {
 		maven {
