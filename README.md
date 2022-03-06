@@ -27,10 +27,8 @@ Configure the upload url in the options block:
 
 ```groovy
 	curseforge {
+		apiBaseUrl = "https://dev.bukkit.org" // This is optional. Defaults to https://minecraft.curseforge.com
 		apiKey = System.getenv("CURSEFORGE_API_KEY") ?: "unset"
-		options {
-			apiBaseUrl = "https://dev.bukkit.org" // This is optional. Defaults to https://minecraft.curseforge.com
-		}
 		project {
 			id = "70690"
 			changelog = "Changelog"
