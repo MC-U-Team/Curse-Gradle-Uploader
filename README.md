@@ -15,7 +15,7 @@ buildscript {
 		jcenter()
 	}
 	dependencies {
-		classpath "info.u-team.curse_gradle_uploader:curse_gradle_uploader:1.4.1"
+		classpath "info.u-team.curse_gradle_uploader:curse_gradle_uploader:1.5.0"
 	}
 }
 
