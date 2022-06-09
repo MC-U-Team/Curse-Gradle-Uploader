@@ -26,7 +26,10 @@ class CurseVersions {
 		
 		final VersionType[] types = Util.gson.fromJson(versionTypesJson, VersionType[].class)
 		types.each { type ->
-			validVersionTypes.add(type.id)
+			// Drop addons from valid versions
+			if(!type.slug.equals("addons")) {
+				validVersionTypes.add(type.id)
+			}
 		}
 		
 		final String gameVersionsJson = Util.httpGet(api.apiKey, api.versionUrl)
