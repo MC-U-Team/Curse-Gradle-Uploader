@@ -75,7 +75,7 @@ configurations {
 
 dependencies {
 	implementationDependencies group: "com.google.guava", name: "guava", version: "31.1-jre"
-	implementationDependencies group: "com.google.code.gson", name: "gson", version: "2.9.0"
+	implementationDependencies group: "com.google.code.gson", name: "gson", version: "2.10.1"
 	implementationDependencies group: "org.apache.httpcomponents", name: "httpmime", version: "4.5.13"
 	implementationDependencies group: "org.apache.httpcomponents", name: "httpclient", version: "4.5.13"
 }
