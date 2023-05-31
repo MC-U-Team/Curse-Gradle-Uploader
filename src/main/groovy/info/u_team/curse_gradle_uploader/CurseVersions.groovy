@@ -3,6 +3,8 @@ package info.u_team.curse_gradle_uploader
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 
+import com.google.common.primitives.Ints
+
 import groovy.transform.CompileStatic
 import info.u_team.curse_gradle_uploader.jsonresponse.*
 
@@ -55,6 +57,6 @@ class CurseVersions {
 			set.add(id)
 		}
 		
-		return set.stream().toArray {size -> new int[size]}
+		return Ints.toArray(set)
 	}
 }
