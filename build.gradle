@@ -40,7 +40,6 @@ gradlePlugin {
 			implementationClass = "info.u_team.curse_gradle_uploader.CurseGradlePlugin"
 		}
 	}
-	automatedPublishing = false
 }
 
 // Fix no sources for gradle api (https://stackoverflow.com/questions/22694199/gradle-api-sources-and-doc-when-writing-gradle-plugins)
@@ -74,7 +73,7 @@ configurations {
 }
 
 dependencies {
-	implementationDependencies group: "com.google.guava", name: "guava", version: "31.1-jre"
+	implementationDependencies group: "com.google.guava", name: "guava", version: "32.0.0-jre"
 	implementationDependencies group: "com.google.code.gson", name: "gson", version: "2.10.1"
 	implementationDependencies group: "org.apache.httpcomponents", name: "httpmime", version: "4.5.14"
 	implementationDependencies group: "org.apache.httpcomponents", name: "httpclient", version: "4.5.14"
