@@ -7,14 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     name: Build
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
           java-version: 11
       - run: chmod +x gradlew
       - run: ./gradlew --version --no-daemon
       - run: ./gradlew build shadowJar --stacktrace --no-daemon --console=plain --warning-mode all
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: cursegradle-fat-jar
           path: build/libs/curse_gradle_uploader*-all.jar
@@ -26,11 +26,11 @@ jobs:
         java: [8, 11]
     name: Integration Test MDK - Java ${{ matrix.java }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java }}
-      - uses: actions/download-artifact@v1
+      - uses: actions/download-artifact@v3
         with:
           name: cursegradle-fat-jar
           path: test/mdk
@@ -49,11 +49,11 @@ jobs:
         java: [8, 11]
     name: Integration Test Bukkit - Java ${{ matrix.java }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java }}
-      - uses: actions/download-artifact@v1
+      - uses: actions/download-artifact@v3
         with:
           name: cursegradle-fat-jar
           path: test/bukkit
