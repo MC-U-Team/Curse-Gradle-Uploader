@@ -111,10 +111,8 @@ publishing {
 		}
 	}
 	publications {
-		mavenJava(MavenPublication) {
+		pluginMaven(MavenPublication) {
 			artifactId = project.archivesBaseName
-			
-			from components.java
 			
 			pom {
 				name = project.archivesBaseName
