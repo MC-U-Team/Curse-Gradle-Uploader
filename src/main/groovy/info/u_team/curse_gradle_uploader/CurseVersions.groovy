@@ -55,6 +55,6 @@ class CurseVersions {
 			set.add(id)
 		}
 		
-		return set.stream().toArray(Integer)
+		return set.stream().toArray {size -> new int[size]}
 	}
 }
