@@ -3,10 +3,12 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 buildscript {
 	repositories {
-		jcenter()
+		mavenCentral()
 	}
 	dependencies {
-		classpath fileTree(dir: projectDir, include: ["curse_gradle_uploader-*-all.jar"])
+		classpath fileTree(dir: projectDir, include: [
+			"curse_gradle_uploader-*-all.jar"
+		])
 	}
 }
 
@@ -72,7 +74,12 @@ task extractDependencyPlugins(type: Copy) {
 	into "run/plugins"
 }
 
-task prepareDevServer(dependsOn: ["buildSpigot", "setupDevServer", "copyPluginToTestserver", "extractDependencyPlugins"]) {}
+task prepareDevServer(dependsOn: [
+	"buildSpigot",
+	"setupDevServer",
+	"copyPluginToTestserver",
+	"extractDependencyPlugins"
+]) {}
 
 task startDevServer(dependsOn: [prepareDevServer], type: JavaExec) {
 	classpath configurations.compileOnly, configurations.runtimeOnly
@@ -91,7 +98,10 @@ task buildSpigot(type: JavaExec) {
 		enabled = false;
 		dependsOn = [];
 	} else {
-		dependsOn = ["cleanSpigotBuild", "downloadBuildTool"]
+		dependsOn = [
+			"cleanSpigotBuild",
+			"downloadBuildTool"
+		]
 	}
 	main = "-jar"
 	args new File(spigotBuildDir, "BuildTools.jar").getAbsolutePath(), "--rev", "1.16.3"
@@ -121,19 +131,19 @@ def hasArtifact(groupId, artifactId, version) {
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-   from javadoc.destinationDir
-   classifier = "javadoc"
+	from javadoc.destinationDir
+	classifier = "javadoc"
 }
 
 task sourcesJar(type: Jar) {
-   from sourceSets.main.allSource
-   classifier = "sources"
+	from sourceSets.main.allSource
+	classifier = "sources"
 }
 
 artifacts {
-   archives jar
-   archives javadocJar
-   archives sourcesJar
+	archives jar
+	archives javadocJar
+	archives sourcesJar
 }
 
 assemble.dependsOn javadocJar, sourcesJar
@@ -150,15 +160,15 @@ curseforge {
 		releaseType = "alpha"
 		
 		addGameVersion "1.16"
-
+		
 		mainArtifact(jar) {
 			displayName = "My Test Mod version $version"
 		}
-
+		
 		addArtifact(javadocJar) {
 			displayName = "My Test Mod Javadoc version $version"
 		}
-
+		
 		addArtifact(sourcesJar) {
 			displayName = "My Test Mod Sources version $version"
 		}

@@ -1,13 +1,14 @@
 buildscript {
-    repositories {
-        maven { url = "https://files.minecraftforge.net/maven" }
-        jcenter()
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "5.1.+", changing: true
-        classpath fileTree(dir: projectDir, include: ["curse_gradle_uploader-*-all.jar"])
-    }
+	repositories {
+		maven { url = "https://files.minecraftforge.net/maven" }
+		mavenCentral()
+	}
+	dependencies {
+		classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "5.1.+", changing: true
+		classpath fileTree(dir: projectDir, include: [
+			"curse_gradle_uploader-*-all.jar"
+		])
+	}
 }
 
 apply plugin: "net.minecraftforge.gradle"
@@ -20,54 +21,54 @@ version = "1.0"
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = "1.8"
 
 minecraft {
-    mappings channel: "snapshot", version: "20200514-1.16"
+	mappings channel: "snapshot", version: "20200514-1.16"
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:1.16.5-36.0.8"
+	minecraft "net.minecraftforge:forge:1.16.5-36.0.8"
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-   from javadoc.destinationDir
-   classifier = "javadoc"
+	from javadoc.destinationDir
+	classifier = "javadoc"
 }
 
 task sourcesJar(type: Jar) {
-   from sourceSets.main.allSource
-   classifier = "sources"
+	from sourceSets.main.allSource
+	classifier = "sources"
 }
 
 artifacts {
-   archives jar
-   archives javadocJar
-   archives sourcesJar
+	archives jar
+	archives javadocJar
+	archives sourcesJar
 }
 
 assemble.dependsOn javadocJar, sourcesJar
 
 curseforge {
-    apiKey = System.getenv("CURSEFORGE_API_KEY") ?: "unset"
-    options {
-        debug = true
-    }
-    project {
-        id = "70690"
-        changelog = "Changes"
-        releaseType = "alpha"
+	apiKey = System.getenv("CURSEFORGE_API_KEY") ?: "unset"
+	options {
+		debug = true
+	}
+	project {
+		id = "70690"
+		changelog = "Changes"
+		releaseType = "alpha"
 		
 		addGameVersion "Forge"
 		addGameVersion "1.16.5"
 		
-        mainArtifact(jar) {
-            displayName = "My Test Mod version $version"
-        }
-
-        addArtifact(javadocJar) {
-            displayName = "My Test Mod Javadoc version $version"
-        }
-
-        addArtifact(sourcesJar) {
-            displayName = "My Test Mod Sources version $version"
-        }
-    }
+		mainArtifact(jar) {
+			displayName = "My Test Mod version $version"
+		}
+		
+		addArtifact(javadocJar) {
+			displayName = "My Test Mod Javadoc version $version"
+		}
+		
+		addArtifact(sourcesJar) {
+			displayName = "My Test Mod Sources version $version"
+		}
+	}
 }
