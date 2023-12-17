@@ -16,6 +16,7 @@ import org.apache.http.impl.client.HttpClientBuilder
 import org.gradle.api.Project
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.AbstractArchiveTask
 
 import static com.google.common.base.Preconditions.checkNotNull
@@ -39,10 +40,13 @@ class Util {
 			throw new NullPointerException("Null path")
 		}
 		if (obj instanceof File) {
-			return (File) obj
+			return obj
+		}
+		if(obj instanceof TaskProvider) {
+			obj = obj.get()
 		}
 		if (obj instanceof AbstractArchiveTask) {
-			return ((AbstractArchiveTask) obj).getArchivePath()
+			return obj.archiveFile.get().asFile
 		}
 		return project.file(obj)
 	}
